@@ -47,6 +47,12 @@ For debugging purposes, Kylo rpm should be now in ./kylo_rpm/kylo.rpm (not inclu
 docker swarm init
 ```
 
+### Download kylo.rpm
+```
+mkdir kylo_rpm
+curl -o ./kylo_rpm/kylo.rpm -L http://bit.ly/2r4P47A
+```
+
 ## Build/Start/Stop
 
 ### Fetch images

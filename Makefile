@@ -15,18 +15,19 @@ fetch:
 .PHONY: build
 build:
 	@echo "Building images ..."
-	@docker build -f Dockerfile-nifi .
-	@docker build -f Dockerfile-kylo .
+	@docker build -f Dockerfile-nifi -t dmalczyk/kylo-nifi .
+	@docker build -f Dockerfile-hadoop -t dmalczyk/kylo-hadoop .
+	@docker build -f Dockerfile-kylo -t dmalczyk/kylo-kylo .
 	@echo "Build finished"
 
 .PHONY: start
 start: fetch build
-	@echo "Starting stack kylo_stack"
+	@echo "Starting stack kylo_stack ..."
 	@docker stack deploy -c docker-compose.yml kylo_stack
 	@echo "Started stack"
 
 .PHONY: stop
 stop:
-	@echo "Stoping stack"
+	@echo "Stoping stack ..."
 	@docker stack rm kylo_stack
 	@echo "Stoped stack"

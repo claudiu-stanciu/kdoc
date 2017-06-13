@@ -6,8 +6,6 @@ working_dir=$4
 NIFI_DATA=$NIFI_INSTALL_HOME/data
 NIFI_VERSION=1.0.0
 
-offline=false
-
 if [ $# -eq 3 ]
 then
     echo "The NIFI home folder is $NIFI_INSTALL_HOME using permissions  $NIFI_USER:$NIFI_GROUP"
@@ -24,22 +22,14 @@ echo "Installing NiFI"
 mkdir $NIFI_INSTALL_HOME
 cd $NIFI_INSTALL_HOME
 
-if [ $offline = true ]
+if ! [ -f nifi-${NIFI_VERSION}-bin.tar.gz ]
 then
-    cp $working_dir/nifi/nifi-${NIFI_VERSION}-bin.tar.gz .
-else
     echo "Download nifi distro and install"
     curl -O https://archive.apache.org/dist/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-bin.tar.gz
 fi
 
-if ! [ -f nifi-${NIFI_VERSION}-bin.tar.gz ]
-then
-    echo "Working in online mode and file not found.. exiting"
-    exit 1
-fi
-
 tar -xvf nifi-${NIFI_VERSION}-bin.tar.gz
-rm -f nifi-${NIFI_VERSION}-bin.tar.gz
+# rm -f nifi-${NIFI_VERSION}-bin.tar.gz
 ln -s nifi-${NIFI_VERSION} current
 
 echo "Externalizing NiFi data files and folders to support upgrades"
