@@ -6,7 +6,6 @@ all: clean build
 .PHONY: build
 build:
 	@echo "Building image dmalczyk/$(IMAGE_NAME) ..."
-	# ./build-kylo.sh
 	@docker build -t dmalczyk/$(IMAGE_NAME) . 
 	@echo "Build finished"
 

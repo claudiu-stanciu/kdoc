@@ -65,13 +65,13 @@ services:
     networks:
       - kylonet    
   kylo:
-    image: dmalczyk/kylo:latest
+    image: dmalczyk/kylo-oracle:latest
     command: ["-d"]
     deploy:
       replicas: 1
       resources:
         limits:
-          cpus: "0.9"
+          cpus: "1.3"
           memory: "6.5G"
       restart_policy:
         condition: none
@@ -81,19 +81,31 @@ services:
     ports:
       - "8079:8079"
       - "8400:8400"
+      - "8420:8420"
+      - "8080:8080"
+      - "8888:8888"
     networks:
-      - kylonet      
-#  visualizer:
-#    image: dockersamples/visualizer:stable
-#    ports:
-#      - "8080:8080"
-#    volumes:
-#      - "/var/run/docker.sock:/var/run/docker.sock"
-#    deploy:
-#      placement:
-#        constraints: [node.role == manager]
-#    networks:
-#      - kylonet
+      - kylonet
+  oracle:
+      image: wnameless/oracle-xe-11g:latest
+      deploy:
+        replicas: 1
+        resources:
+          limits:
+            cpus: "0.5"
+            memory: "1G"
+        restart_policy:
+          condition: on-failure
+          delay: 60s
+          max_attempts: 3
+          window: 180s     
+      ports:
+        - "49160:22"
+        - "49161:1521"
+      networks:
+        - kylonet
+      environment:
+        - "ORACLE_ALLOW_REMOTE=true"
 volumes:
   esdata:
     driver: local
