@@ -10,14 +10,11 @@ COPY kylo-commons-jdbc-0.8.2-SNAPSHOT.jar /opt/kylo/kylo-services/lib/
 
 COPY ojdbc6.jar /opt/nifi/oracle/
 COPY ojdbc6.jar /opt/kylo/kylo-services/plugin/
-COPY ojdbc6.jar /opt/kylo/kylo-services/conf/
 COPY ojdbc6.jar /opt/kylo/kylo-services/lib/
 COPY ojdbc6.jar /usr/local/spark/lib/
-COPY ojdbc6.jar /opt/nifi/mysql/
 
 COPY log4j-spark.properties /opt/kylo/kylo-services/conf/
-#COPY spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
-#COPY kylo_bootstrap.sh /etc/kylo_bootstrap.sh
+
 COPY hadoop_bootstrap.sh /etc/hadoop_bootstrap.sh
 
 ENV SPARK_CONF_DIR $SPARK_HOME/conf
