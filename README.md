@@ -31,7 +31,7 @@ screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
 moby login: root
 # Input empty pwd by click enter
 # Set the parameter
-moby:~#sysctl -w vm.max_map_count=262144
+moby:~# sudo sysctl -w vm.max_map_count=262144
 # Then you can check if this parameter is set:
 moby:~# sysctl vm.max_map_count
 # You should see sth like below
